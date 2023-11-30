@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../Button/Button";
-import { getData } from "../FetchApi/AppProgInter";
 import FinalResult from "../FinalResult/FinalResult";
-import Timer from "../Timer/Timer";
 import Headers from "../Button/Headers/Headers";
 
 const MultipleChoiceQuestion = ({ isValue }) => {

@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import MultipleChoiceQuestion from "../MultipleChoiceQuestion/MultipleChoiceQuestion";
 
 const AppProgInter = () => {
   const [isValue, setValue] = useState([]);
-  const [isInputValue, setInputValue] = useState([]);
+  // const [isInputValue, setInputValue] = useState([]);
   useEffect(() => {
     getData();
   }, []);
