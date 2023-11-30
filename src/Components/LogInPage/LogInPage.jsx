@@ -67,9 +67,7 @@ const LogInPage = () => {
                 <div className="text-center mt-2 font-mono">
                   <span>
                     Don't have An Account ?{" "}
-                    <a href="" onClick={(e) => moveToSignPageBtn(e)}>
-                      SignIn
-                    </a>
+                    <p onClick={(e) => moveToSignPageBtn(e)}>SignIn</p>
                   </span>
                 </div>
               </div>

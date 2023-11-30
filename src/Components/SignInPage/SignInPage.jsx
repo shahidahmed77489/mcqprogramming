@@ -76,9 +76,7 @@ const SignInPage = ({ isSign, setSign }) => {
               </div>
             </form>
             <div className="text-center mt-2 font-mono">
-              <a href="" onClick={(e) => handleSigin(e)}>
-                Already Have An Account
-              </a>
+              <p onClick={(e) => handleSigin(e)}>Already Have An Account</p>
             </div>
           </div>
         </div>
