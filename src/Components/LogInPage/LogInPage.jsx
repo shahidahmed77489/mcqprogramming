@@ -17,7 +17,7 @@ const LogInPage = () => {
   };
   const submitHandler = (e) => {
     const findData = isLoginData.find(
-      (item) => item.email === isEmail && item.password
+      (item) => item.email === isEmail && item.password === isPassword
     );
     if (findData) {
       alert("login successful");
@@ -31,7 +31,7 @@ const LogInPage = () => {
   useEffect(() => {
     const getValue = JSON.parse(localStorage.getItem("user"));
     setLoginData(getValue);
-  }, [isPassword]);
+  }, []);
 
   const moveToSignPageBtn = (e) => {
     setSign(!isSign);

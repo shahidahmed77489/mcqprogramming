@@ -16,7 +16,7 @@ const Timer = () => {
           setIsMinute((prevMinute) => prevMinute + 1);
           setIsSecond(0);
         }
-        if (isMinute === 10) {
+        if (isMinute === 5) {
           alert("your time is over");
           setStart(false);
           navigate("/finalresult");
@@ -31,7 +31,7 @@ const Timer = () => {
     <>
       <div>
         <div className="flex gap-4 text-xl">
-          {isMinute}min:{isSecond}sec / 02:00
+          {isMinute}min:{isSecond}sec / 05:00
         </div>
       </div>
     </>
