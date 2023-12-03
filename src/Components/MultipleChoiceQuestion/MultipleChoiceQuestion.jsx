@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Button from "../Button/Button";
 import FinalResult from "../FinalResult/FinalResult";
 import Headers from "../Button/Headers/Headers";
+import { useNavigate } from "react-router-dom";
 
 const MultipleChoiceQuestion = ({ isValue }) => {
+  const navigate = useNavigate();
   const [isFinalResult, SetFinalResult] = useState(false);
   const [isCount, setIsCount] = useState(0);
   const [isSelected, setIsSelected] = useState([]);
@@ -29,8 +31,6 @@ const MultipleChoiceQuestion = ({ isValue }) => {
   };
   //
   function checkBoxBtn(e, index, option, id) {
-    console.log(id);
-    console.log(index);
     setIsSelected([...isSelected, id]);
     let filterdData = isValue.filter((item) => item.answerkey === option);
     let findAnswer = filterdData.find(
@@ -43,6 +43,9 @@ const MultipleChoiceQuestion = ({ isValue }) => {
   //
   const submitBtn = () => {
     SetFinalResult(!isFinalResult);
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
   //
   return (
@@ -56,7 +59,7 @@ const MultipleChoiceQuestion = ({ isValue }) => {
           {isValue.length > 0 &&
             isValue.slice(isRunMap, range).map((item, index) => {
               return (
-                <>
+                <React.Fragment key={item.id}>
                   <div className="  bg-white h-auto p-8 rounded mb-4 lg:h-96">
                     <h2 className="my-4 font-mono">
                       Question {isRunMap + 1}. Out Of {isValue.length}
@@ -119,10 +122,10 @@ const MultipleChoiceQuestion = ({ isValue }) => {
                       </div>
                     </div>
                   </div>
-                </>
+                </React.Fragment>
               );
             })}
-          <div className="flex">
+          <div className="flex mb-4">
             <Button btn={"Prev"} onClickHandler={backwardBtn} />
             <Button btn={"Next"} onClickHandler={forwardBtn} />
           </div>

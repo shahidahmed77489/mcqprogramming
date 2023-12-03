@@ -1,17 +1,32 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 const SignInPage = ({ isSign, setSign }) => {
-  const navigate = useNavigate();
-  const submitHandler = () => {
-    navigate("/");
-  };
+  const [isData, setData] = useState([]);
+  const [isInput, setInput] = useState({
+    email: "",
+    phone: "",
+    date: "",
+    password: "",
+  });
+
   const inputHandler = (e) => {
-    // console.log(e.target.value);
+    const { name, value } = e.target;
+    setInput({ ...isInput, [name]: value });
   };
   const handleSigin = (e) => {
     e.preventDefault();
     setSign(!isSign);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setData([...isData, isInput]);
+    localStorage.setItem("user", JSON.stringify([...isData, isInput]));
+    setInput({
+      email: "",
+      phone: "",
+      date: "",
+      password: "",
+    });
   };
   return (
     <>
@@ -30,6 +45,8 @@ const SignInPage = ({ isSign, setSign }) => {
                 <input
                   className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
                   type="email"
+                  name="email"
+                  value={isInput.email}
                   onChange={(e) => inputHandler(e)}
                 />
               </div>
@@ -41,6 +58,8 @@ const SignInPage = ({ isSign, setSign }) => {
                 <input
                   className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
                   type="text"
+                  name="phone"
+                  value={isInput.phone}
                   onChange={(e) => inputHandler(e)}
                 />
               </div>
@@ -52,6 +71,8 @@ const SignInPage = ({ isSign, setSign }) => {
                 <input
                   className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
                   type="date"
+                  name="date"
+                  value={isInput.date}
                   onChange={(e) => inputHandler(e)}
                 />
               </div>
@@ -62,7 +83,9 @@ const SignInPage = ({ isSign, setSign }) => {
                 <br />
                 <input
                   className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
-                  type="text"
+                  type="password"
+                  name="password"
+                  value={isInput.password}
                   onChange={(e) => inputHandler(e)}
                 />
               </div>

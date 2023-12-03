@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 
 const Timer = () => {
+  const navigate = useNavigate();
   let [isSecond, setIsSecond] = useState(0);
   let [isMinute, setIsMinute] = useState(0);
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(true);
   useEffect(() => {
     let interval;
     if (start) {
@@ -15,27 +16,22 @@ const Timer = () => {
           setIsMinute((prevMinute) => prevMinute + 1);
           setIsSecond(0);
         }
-        if (isMinute === 2) {
+        if (isMinute === 10) {
           alert("your time is over");
-          setStart(true);
+          setStart(false);
+          navigate("/finalresult");
         }
-      }, 100);
+      }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [start, isSecond, isMinute]);
-  const startBtn = () => {
-    setStart(!start);
-  };
+  }, [start, isSecond, isMinute, navigate]);
+
   return (
     <>
       <div>
         <div className="flex gap-4 text-xl">
-          {isMinute}:{isSecond}
-          <Button
-            btn={!start ? "Start The Exam" : "Stop The Exam"}
-            onClickHandler={startBtn}
-          />
+          {isMinute}min:{isSecond}sec / 02:00
         </div>
       </div>
     </>

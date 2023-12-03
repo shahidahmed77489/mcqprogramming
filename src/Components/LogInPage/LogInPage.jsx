@@ -1,18 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignInPage from "../SignInPage/SignInPage";
 import AppProgInter from "../FetchApi/AppProgInter";
 
 const LogInPage = () => {
   const [isSign, setSign] = useState(true);
   const [isForm, setForm] = useState(false);
+  const [isLoginData, setLoginData] = useState([]);
+  const [isEmail, setEmail] = useState("");
+  const [isPassword, setPassword] = useState("");
 
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+  };
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+  };
   const submitHandler = (e) => {
-    console.log("submit");
-    setForm(!isForm);
+    const findData = isLoginData.find(
+      (item) => item.email === isEmail && item.password
+    );
+    if (findData) {
+      alert("login successful");
+      setForm(!isForm);
+    } else {
+      alert("password does not match");
+      e.preventDefault();
+    }
   };
-  const inputHandler = (e) => {
-    console.log(e.target.value);
-  };
+
+  useEffect(() => {
+    const getValue = JSON.parse(localStorage.getItem("user"));
+    setLoginData(getValue);
+  }, [isPassword]);
+
   const moveToSignPageBtn = (e) => {
     setSign(!isSign);
     e.preventDefault();
@@ -28,8 +48,7 @@ const LogInPage = () => {
               <div className="w-3/4 lg:w-1/3 bg-white p-8 rounded">
                 <div>
                   <h2 className="text-center text-3xl font-mono">
-                    {" "}
-                    Student LogIn{" "}
+                    Student LogIn
                   </h2>
                 </div>
                 <form action="" onSubmit={submitHandler}>
@@ -41,7 +60,7 @@ const LogInPage = () => {
                     <input
                       className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
                       type="email"
-                      onChange={(e) => inputHandler(e)}
+                      onChange={(e) => emailHandler(e)}
                     />
                   </div>
                   <div>
@@ -51,8 +70,8 @@ const LogInPage = () => {
                     <br />
                     <input
                       className="border rounded outline-sky-500 font-mono px-2 py-1 border-solid border-gray-500 w-full"
-                      type="text"
-                      onChange={(e) => inputHandler(e)}
+                      type="password"
+                      onChange={(e) => passwordHandler(e)}
                     />
                   </div>
                   <div className="text-center">
@@ -66,7 +85,7 @@ const LogInPage = () => {
                 </form>
                 <div className="text-center mt-2 font-mono">
                   <span>
-                    Don't have An Account ?{" "}
+                    Don't have An Account ?
                     <p onClick={(e) => moveToSignPageBtn(e)}>SignIn</p>
                   </span>
                 </div>
