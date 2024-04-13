@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import FinalResult from "../FinalResult/FinalResult";
 import Headers from "../Button/Headers/Headers";
 import { useNavigate } from "react-router-dom";
-
+const selectedQuestionVSAns = new Map();
 const MultipleChoiceQuestion = ({ isValue }) => {
   const navigate = useNavigate();
   const [isFinalResult, SetFinalResult] = useState(false);
@@ -11,6 +11,7 @@ const MultipleChoiceQuestion = ({ isValue }) => {
   const [isSelected, setIsSelected] = useState([]);
   const [isRunMap, setRunMap] = useState(0);
   const [range, setRange] = useState(1);
+  // const[selectedQuestionVSAns,set] = useState({})
 
   const forwardBtn = () => {
     if (isRunMap < isValue.length - 1) {
@@ -31,6 +32,7 @@ const MultipleChoiceQuestion = ({ isValue }) => {
   };
   //
   function checkBoxBtn(e, index, option, id) {
+    selectedQuestionVSAns.set(id, option);
     setIsSelected([...isSelected, id]);
     let filterdData = isValue.filter((item) => item.answerkey === option);
     let findAnswer = filterdData.find(
@@ -39,6 +41,7 @@ const MultipleChoiceQuestion = ({ isValue }) => {
     if (findAnswer) {
       setIsCount(isCount + 1);
     }
+    // console.log(selectedQuestionVSAns);
   }
   //
   const submitBtn = () => {
@@ -50,7 +53,9 @@ const MultipleChoiceQuestion = ({ isValue }) => {
   //
   return (
     <div>
-      {isFinalResult && <FinalResult score={isCount} />}
+      {isFinalResult && (
+        <FinalResult score={isCount} SetFinalResult={SetFinalResult} />
+      )}
       <div>
         <Headers />
       </div>
@@ -58,6 +63,8 @@ const MultipleChoiceQuestion = ({ isValue }) => {
         <div className="w-full ">
           {isValue.length > 0 &&
             isValue.slice(isRunMap, range).map((item, index) => {
+              // console.log(selectedQuestionVSAns);
+              // console.log(selectedQuestionVSAns.get(item.id) === item.optiona);
               return (
                 <React.Fragment key={item.id}>
                   <div className="  bg-white h-auto p-8 rounded mb-4 lg:h-96">
@@ -73,7 +80,10 @@ const MultipleChoiceQuestion = ({ isValue }) => {
                           type="radio"
                           name={`answer${item.id}`}
                           value={item.optiona}
-                          onClick={(e) =>
+                          checked={
+                            selectedQuestionVSAns.get(item.id) === item.optiona
+                          }
+                          onChange={(e) =>
                             checkBoxBtn(e, index, item.optiona, item.id)
                           }
                         />
@@ -86,7 +96,10 @@ const MultipleChoiceQuestion = ({ isValue }) => {
                           type="radio"
                           name={`answer${item.id}`}
                           value={item.optionb}
-                          onClick={(e) =>
+                          checked={
+                            selectedQuestionVSAns.get(item.id) === item.optionb
+                          }
+                          onChange={(e) =>
                             checkBoxBtn(e, index, item.optionb, item.id)
                           }
                         />
@@ -99,7 +112,10 @@ const MultipleChoiceQuestion = ({ isValue }) => {
                           type="radio"
                           name={`answer${item.id}`}
                           value={item.optionc}
-                          onClick={(e) =>
+                          checked={
+                            selectedQuestionVSAns.get(item.id) === item.optionc
+                          }
+                          onChange={(e) =>
                             checkBoxBtn(e, index, item.optionc, item.id)
                           }
                         />
@@ -112,7 +128,12 @@ const MultipleChoiceQuestion = ({ isValue }) => {
                           type="radio"
                           name={`answer${item.id}`}
                           value={item.optiond}
-                          onClick={(e) =>
+                          checked={
+                            selectedQuestionVSAns.get(item.id) === item.optiond
+                              ? true
+                              : false
+                          }
+                          onChange={(e) =>
                             checkBoxBtn(e, index, item.optiond, item.id)
                           }
                         />

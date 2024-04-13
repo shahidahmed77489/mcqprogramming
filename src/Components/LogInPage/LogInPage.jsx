@@ -16,7 +16,7 @@ const LogInPage = () => {
     setPassword(e.target.value);
   };
   const submitHandler = (e) => {
-    const findData = isLoginData.find(
+    const findData = isLoginData?.find(
       (item) => item.email === isEmail && item.password === isPassword
     );
     if (findData) {
@@ -86,7 +86,12 @@ const LogInPage = () => {
                 <div className="text-center mt-2 font-mono">
                   <span>
                     Don't have An Account ?
-                    <p onClick={(e) => moveToSignPageBtn(e)}>SignIn</p>
+                    <p
+                      onClick={(e) => moveToSignPageBtn(e)}
+                      className="underline cursor-pointer text-red-500"
+                    >
+                      SignUp
+                    </p>
                   </span>
                 </div>
               </div>

@@ -2,6 +2,15 @@ import React from "react";
 import Timer from "../../Timer/Timer";
 
 const Headers = () => {
+  const handleLanguageChange = (e) => {
+    const { value } = e.target;
+    if (value === "English") {
+      console.log("english");
+    } else {
+      console.log("hindi");
+    }
+  };
+
   return (
     <div className="text-center lg:flex justify-evenly bg-white py-6 items-center">
       <div>
@@ -19,12 +28,12 @@ const Headers = () => {
           </span>
         </p>
       </div>
-      <div>
-        <select className="font-mono">
+      {/* <div>
+        <select className="font-mono" onClick={handleLanguageChange}>
           <option value="English">English</option>
           <option value="Hindi">Hindi</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const FinalResult = ({ score }) => {
+const FinalResult = ({ score, SetFinalResult }) => {
   const navigate = useNavigate();
   const hideBtn = () => {
     navigate("/");
+    SetFinalResult(false);
   };
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
